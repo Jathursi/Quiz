@@ -1,0 +1,61 @@
+@model QuizTest.Web.Models.Entities.QuizListViewModel
+
+<h1>Quiz</h1>
+
+@* <div>
+    <h2>Quizzes</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in Model.Quizzes)
+            {
+                <tr>
+                    <td>@quiz.Ques</td>
+                    <td>
+                        <ul>
+                            @foreach (var option in Model.AllOptions.Where(o => o.QuizzId == quiz.Id))
+                            {
+                                <li>@option.Ans @(option.IsCorrect ? "(Correct)" : "")</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="AddOption" asp-route-id="@quiz.Id">Add Option</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> *@
+@{
+    var index = 1;
+}
+@foreach (var quiz in Model.Quizzes)
+{
+    <div class="card mt-4">
+        <div class="card-header ">
+           
+            <h2>@index. @quiz.Ques</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                @foreach (var option in Model.AllOptions.Where(o => o.QuizzId == quiz.Id))
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled id="option_@option.Id" @(option.IsCorrect ?
+                                                                                                                            "checked" : "") />
+                        <label class="form-check-label" for="option_@option.Id">
+                            @option.Ans @(option.IsCorrect ? "(Correct)" : "")
+                        </label>
+                    </div>
+                }
+        </div>
+    </div>
+    index++;
+}

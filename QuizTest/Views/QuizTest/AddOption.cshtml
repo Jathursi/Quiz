@@ -1,0 +1,44 @@
+@* @model QuizTest.Web.Models.Entities.AddOptionViewModel
+
+<h1>Add Option</h1>
+<form asp-action="AddOption" asp-controller="QuizTest" method="post">
+    <div class="mb-3">
+        <label asp-for="Ans" class="form-label"></label>
+        <input asp-for="Ans" class="form-control" />
+        <span asp-validation-for="Ans" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsCorrect" class="form-label">Is Correct</label>
+        <input asp-for="IsCorrect" type="checkbox" />
+        <span asp-validation-for="IsCorrect" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Option</button>
+</form> *@
+
+@model QuizTest.Web.Models.Entities.AddOptionViewModel
+
+@{
+    ViewBag.Quizzes = ViewBag.Quizzes as List<QuizTest.Web.Models.Entities.Quizz>;
+}
+
+<h1>Add Option</h1>
+<form asp-action="AddOption" asp-controller="QuizTest" method="post">
+    <div class="mb-3">
+        <label asp-for="Ans" class="form-label"></label>
+        <input asp-for="Ans" class="form-control" />
+        <span asp-validation-for="Ans" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IsCorrect" class="form-label">Is Correct</label>
+        <input asp-for="IsCorrect" type="checkbox" />
+        <span asp-validation-for="IsCorrect" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="QuizzId" class="form-label">Quiz</label>
+        <select asp-for="QuizzId" class="form-control" asp-items="@(new SelectList(ViewBag.Quizzes, "Id", "Ques"))">
+            <option value="">-- Select Quiz --</option>
+        </select>
+        <span asp-validation-for="QuizzId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Option</button>
+</form>

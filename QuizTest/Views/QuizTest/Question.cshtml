@@ -1,0 +1,50 @@
+@model QuizTest.Web.Models.Entities.QuizListViewModel
+
+<h1>Quiz</h1>
+
+@{
+    var index = 1;
+}
+
+<form asp-action="Question" method="post">
+    @foreach (var quiz in Model.Quizzes)
+    {
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>@index. @quiz.Ques</h2>
+            </div>
+            <div class="card-body">
+                @foreach (var option in Model.AllOptions.Where(o => o.QuizzId == quiz.Id))
+                {
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="SelectedOptions[@quiz.Id]" value="@option.Id"
+                            id="option_@option.Id" />
+                        <label class="form-check-label" for="option_@option.Id">
+                            @option.Ans
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+        index++;
+    }
+
+    <button type="submit" class="btn btn-success mt-4">Submit Quiz</button>
+</form>
+
+
+<script>
+    document.querySelectorAll('.single-option').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const quizId = this.getAttribute('data-quiz-id');
+            if (this.checked) {
+                // Uncheck all other checkboxes in the same question
+                document.querySelectorAll('.single-option[data-quiz-id="' + quizId + '"]').forEach(function (other) {
+                    if (other !== checkbox) {
+                        other.checked = false;
+                    }
+                });
+            }
+        });
+    });
+</script>

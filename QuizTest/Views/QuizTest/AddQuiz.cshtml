@@ -1,0 +1,13 @@
+@model QuizTest.Web.Models.Entities.AddQuizzViewModel
+
+<h1>Add Quiz</h1>
+
+<form asp-action="AddQuiz" asp-controller="QuizTest" method="post">
+    <div class="mb-3">
+        <label asp-for="Ques" class="form-label"></label>
+        <input asp-for="Ques" class="form-control" />
+        <span asp-validation-for="Ques" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Quiz</button>
+</form>
+
